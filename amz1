@@ -1,3 +1,97 @@
+public class AmazonFreshPromo {
+    /*
+     * Complete the 'foo' function below.
+     *
+     * The function is expected to return an INTEGER.
+     * The function accepts following parameters:
+     *  1. STRING_ARRAY codeList
+     *  2. STRING_ARRAY shoppingCart
+     */
+
+    public static int foo(List<String> codeList, List<String> shoppingCart) {
+
+        if(codeList.isEmpty() || codeList.size()==0) return 1;
+
+        int index=0;
+        int codelistLenght = codeList.size();
+        int shoppingCartLength = shoppingCart.size();
+        boolean firstItemMatched = false;
+
+        for(int i=0;i< codelistLenght;i++){
+
+            if(shoppingCart.get(i).equals(codeList.get(index))) {
+
+                if(!firstItemMatched){
+                    firstItemMatched=true;
+//                    index++;
+                    if((shoppingCartLength-i)==(codelistLenght-index)){
+                        continue;
+                    }
+                    else
+                        return 0;
+                }
+
+                if(firstItemMatched){
+                    if(shoppingCart.get(i).equals(codeList.get(index)) || codeList.get(index).equals("anything"))
+                        index++;
+
+                }
+
+            }
+        }
+
+        return 1;
+
+    }
+
+
+    public static void main(String[] args) throws IOException, IOException {
+//        BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(System.in));
+//        BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter(System.getenv("OUTPUT_PATH")));
+
+        int codeListCount = 2;//Integer.parseInt(bufferedReader.readLine().trim());
+
+        List<String> codeList =
+//                Arrays.asList(new String[]{"apple","apple","banana","anything","banana"});
+                Arrays.asList(new String[]{"orange","apple","apple","banana","orange","apple","banana"});
+//                IntStream.range(0, codeListCount).mapToObj(i -> {
+//                    try {
+//                        return bufferedReader.readLine();
+//                    } catch (IOException ex) {
+//                        throw new RuntimeException(ex);
+//                    }
+//                })
+//                .collect(toList());
+
+        int shoppingCartCount = 6;//Integer.parseInt(bufferedReader.readLine().trim());
+        List<String> shoppingCart =
+//                Arrays.asList(new String[]{"orange","apple","apple","banana","orange","banana"});
+        Arrays.asList(new String[]{"orange","apple","apple","banana","orange","banana"});
+        foo(codeList,shoppingCart);
+
+//        List<String> shoppingCart = IntStream.range(0, shoppingCartCount).mapToObj(i -> {
+//                    try {
+//                        return bufferedReader.readLine();
+//                    } catch (IOException ex) {
+//                        throw new RuntimeException(ex);
+//                    }
+//                })
+//                .collect(toList());
+//
+//        int result = Result.foo(codeList, shoppingCart);
+//
+//        bufferedWriter.write(String.valueOf(result));
+//        bufferedWriter.newLine();
+//
+//        bufferedReader.close();
+//        bufferedWriter.close();
+    }
+
+}
+
+
+
+
 /*Amazon Fresh is running a promotion in which customers receive prizes for purchasing a secret combination of fruits. The combination will change each day, and the team running the promotion wants to use a code list to make it easy to change the combination. The code list contains groups of fruits. Both the order of the groups within the code list and the order of the fruits within the groups matter. However, between the groups of fruits, any number, and type of fruit is allowable. The term “anything” is used to allow for any type of fruit to appear in that location within the group.
 
 
