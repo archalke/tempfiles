@@ -1,4 +1,92 @@
 
+public class AmazonReview {
+
+    /*
+     * Complete the 'searchSuggestions' function below.
+     *
+     * The function is expected to return a 2D_STRING_ARRAY.
+     * The function accepts following parameters:
+     *  1. STRING_ARRAY repository
+     *  2. STRING customerQuery
+     */
+
+    public static List<List<String>> searchSuggestions(List<String> repository, String customerQuery) {
+        // Write your code here
+        System.out.println(Arrays.toString(repository.toArray()));
+        System.out.println("Customer Query --> "+customerQuery + " Length: "+ customerQuery.length());
+
+        if(customerQuery.length()<2)
+            return null;
+
+        int queryLength = customerQuery.length();
+        List<List<String>> result = new ArrayList<>();
+
+        repository = repository.stream().map(String::toLowerCase).collect(toList());
+
+        for(int i=2;i<=queryLength;i++){
+            final String str = customerQuery.substring(0,i);
+            System.out.println("str at i = "+i+" --> "+ str);
+            System.out.println( Arrays.toString( repository.toArray()));
+            result.add(
+                    repository.stream()
+                            .filter(value->value.toLowerCase().startsWith(str))
+                            .sorted()
+                            .limit(3)
+                            .map(String::toLowerCase)
+                            .collect(Collectors.toList()) );
+        }
+
+        List<List<String>> a = new ArrayList<List<String>>(){{
+//          add( new ArrayList<>(){{add("first");}});
+            add( new ArrayList<String>(){{add("first");}});
+            add( new ArrayList<String>(){{add("second");}});
+        }};
+        return result ;
+    }
+
+    public static void main(String[] args) throws IOException {
+        BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(System.in));
+//        BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter(System.getenv("OUTPUT_PATH")));
+
+        int repositoryCount = 5;//Integer.parseInt(bufferedReader.readLine().trim());
+
+        List<String> repository =
+//                Arrays.asList("mobile", "mouse", "moneypot", "monitor", "mousepad" );
+                Arrays.asList("abbS","abc","Abs","bcs","bdsa","cdde","rgb","yjmm","xxmm","zeee");
+//        IntStream.range(0, repositoryCount).mapToObj(i -> {
+//                    try {
+//                        return bufferedReader.readLine();
+//                    } catch (IOException ex) {
+//                        throw new RuntimeException(ex);
+//                    }
+//                })
+//                .collect(toList());
+
+        String customerQuery = bufferedReader.readLine();
+
+        List<List<String>> result = AmazonReview.searchSuggestions(repository, customerQuery);
+
+//        result.stream()
+//                .map(
+//                        r -> r.stream()
+//                                .collect(joining(" "))
+//                )
+//                .map(r -> r + "\n")
+//                .collect(toList())
+//                .forEach(e -> {
+//                    try {
+//                        bufferedWriter.write(e);
+//                    } catch (IOException ex) {
+//                        throw new RuntimeException(ex);
+//                    }
+//                });
+//
+//        bufferedReader.close();
+//        bufferedWriter.close();
+    }
+
+}
+
 /*
 Amazon is building a way to help customers search reviews quicker by providing real-time suggestions to search terms when the customer starts typing. When given a minimum of two characters into the search field the system will suggest at most three keywords from the review word repository. As the customer continues to type in the reviews search bar the relevant keyword suggestions will update automatically.
 
